@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+.container {
+  margin: 0 auto;
+  width: 80%;
+  background-color: #1e1e1e;
+  color: #fff;
+  padding: 2rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 2rem 0;
+  text-transform: uppercase;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+label {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="file"] {
+  font-size: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #252525;
+  color: #fff;
+  margin-top: 0.5rem;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+input[type="file"]:focus {
+  outline-color: #007bff;
+}
+
+button[type="submit"] {
+  font-size: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #0062cc;
+}
+
+input:required {
+  border-color: red;
+}
+
+input:valid {
+  border-color: #28a745;
+}
+
+input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+::placeholder {
+  color: #aaa;
+}
+
+/* For small screens */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="file"] {
+    font-size: 1rem;
+  }
+  
+  button[type="submit"] {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  
+  label {
+    font-size: 1.25rem;
+  }
+}
+  </style>
+  <title>Form Example</title>
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Career Page</h2>
+    <form method="post" id="form">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email " name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+      </div>
+      <div class="form-group">
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+      </div>
+      <div class="form-group">
+        <label for="resume">Resume Attachment:</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+      </div>      
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+  <script>
+    let url = 'https://script.google.com/macros/s/AKfycbytBtvyx_TTY9Vb3f_DLZbJkRh1sViF_INmJxI_B1cQdqT27yh7yvXL-ehaKXQigyNZ/exec';
+    let form = document.querySelector('#form');
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      let formData = new FormData(form);
+
+      fetch(url, {
+        method: "POST",
+        body: formData
+      }).then((res) => res.text())
+      .then((finalRes) => {
+        console.log(finalRes);
+        sendEmail(formData.get("email")); // Call the sendEmail function after form submission
+      });
+    });
+
+    function sendEmail(recipientEmail) {
+      Email.send({
+    Host : "smtp.elasticemail.com",
+    Username : "p.b.badi18@gmail.com",
+    Password : "374211767FF79865CA5DE85ADF6D9A1C28BD",
+    To : document.getElementById("email").value,
+    From : "p.b.badi18@gmail.com",
+    Subject : "This is the subject",
+    Body : "And this is the body"
+}).then(
+  message => alert(message)
+);
+    }
+  </script>                                                     
+</body>
+</html>
